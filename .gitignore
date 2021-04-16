@@ -1,0 +1,9 @@
+## Frontend
+frontend/node_modules
+fronted/package-lock.json
+frontend/build
+
+## Backend
+
+backend/__pycache__
+backend/ecommerce/__pycache__
