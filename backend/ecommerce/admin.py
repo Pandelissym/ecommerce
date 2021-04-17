@@ -1,7 +1,11 @@
+from django.apps import apps
 from django.contrib import admin
-from .models import Product
+from django.contrib.admin.sites import AlreadyRegistered
 
-# Register your models here.
+app_models = apps.get_app_config('ecommerce').get_models()
 
-admin.site.register(Product)
-
+for model in app_models:
+    try:
+        admin.site.register(model)
+    except AlreadyRegistered:
+        pass
