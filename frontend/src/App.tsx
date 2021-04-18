@@ -1,11 +1,16 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Grid, ThemeProvider, createMuiTheme } from "@material-ui/core";
+import {
+  Grid,
+  ThemeProvider,
+  unstable_createMuiStrictModeTheme as createMuiTheme,
+} from "@material-ui/core";
 import "./css/app.css";
 import { Menu } from "./components/menu/Menu.js";
 import { ProductsPage } from "./pages/ProductsPage.js";
 import { ProductDetailsPage } from "./pages/ProductDetailsPage";
 import { useState } from "react";
-import { CartProducts } from "./types/CartProducts";
+import { Cart } from "./types/ProductType";
+import { CartDrawer } from "./components/CartDrawer";
 
 const theme = createMuiTheme({
   palette: {
@@ -27,15 +32,18 @@ const theme = createMuiTheme({
 });
 
 function App() {
-  const [cart, setCart] = useState<CartProducts>({});
+  const [cart, setCart] = useState<Cart>({});
+  const [openDrawer, setOpenDrawer] = useState<boolean>(false);
 
-  let addToCart = (product: { productId: number; amount: number }) => {
-    let total = product.amount;
-    total +=
-      cart[product.productId] === undefined ? 0 : cart[product.productId];
+  const toggleDrawer = (toggle: boolean) => (event: object) =>
+    setOpenDrawer(toggle);
+
+  let addToCart = (productId: string, amount: number) => {
+    let total = amount;
+    total += cart[productId] === undefined ? 0 : cart[productId];
     let newCart = { ...cart };
-    newCart[product.productId] = total;
-    console.log(newCart);
+    newCart[productId] = total;
+
     setCart(newCart);
   };
 
@@ -44,7 +52,10 @@ function App() {
       <Router>
         <Grid container spacing={0}>
           <Grid item xs={12}>
-            <Menu itemsAmount={Object.keys(cart).length} />
+            <Menu
+              itemsAmount={Object.keys(cart).length}
+              openDrawer={toggleDrawer(true)}
+            />
           </Grid>
           <Grid item xs={12}>
             <Switch>
@@ -57,6 +68,11 @@ function App() {
             </Switch>
           </Grid>
         </Grid>
+        <CartDrawer
+          cart={cart}
+          open={openDrawer}
+          callback={toggleDrawer(false)}
+        />
       </Router>
     </ThemeProvider>
   );

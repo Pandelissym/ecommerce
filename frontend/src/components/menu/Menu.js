@@ -50,7 +50,7 @@ export const Menu = (props) => {
         </Link>
       </Grid>
       <Grid container justify="center" item xs={1}>
-        <IconButton color="secondary">
+        <IconButton color="secondary" onClick={props.openDrawer}>
           <Badge badgeContent={props.itemsAmount}>
             <ShoppingCartIcon />
           </Badge>

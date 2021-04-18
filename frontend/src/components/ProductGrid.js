@@ -1,6 +1,6 @@
 import { Grid } from "@material-ui/core";
 import React from "react";
-import Product from "./Product";
+import Product from "./ProductCard";
 
 export const ProductGrid = ({ products }) => {
   return <Grid container>{products.map((x) => makeGridItem(x))}</Grid>;
