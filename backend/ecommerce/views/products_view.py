@@ -1,9 +1,8 @@
-from django.shortcuts import render
 from rest_framework.views import APIView, Response
-from .models import Product
-from .serializers import ProductSerializer, PartialProductSerializer
+from ..models import Product
+from ..serializers import ProductSerializer, PartialProductSerializer
 
-# Create your views here.
+
 class ProductListView(APIView):
 
   def get(self, request, format=None):
@@ -18,6 +17,6 @@ class ProductView(APIView):
 
     if not queryset.exists():
       return Response({"Error": "Product not found"}, status=404)
-    print(queryset[0].size)
+
     serialized = ProductSerializer(queryset[0], context={"request": request})
     return Response(serialized.data)
