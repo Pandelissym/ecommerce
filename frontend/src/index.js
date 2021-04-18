@@ -1,14 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import "./index.css";
-import { StylesProvider } from "@material-ui/core/styles";
+import "./css/global.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <StylesProvider injectFirst>
-      <App />
-    </StylesProvider>
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

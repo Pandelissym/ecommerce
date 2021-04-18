@@ -1,8 +1,8 @@
-import { Card } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { AddToCartButton } from "../components/AddToCartButton";
 
-export const ProductDetails = () => {
+export const ProductDetailsPage = (props) => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
 
@@ -15,13 +15,14 @@ export const ProductDetails = () => {
   }, [id]);
 
   return (
-    <Card>
+    <div>
       <p>{product.name}</p>
       <p>{product.description}</p>
       <p>{product.size}</p>
       <p>{product.color}</p>
-      <img alt="" src={product.image} a=""></img>
+      <img alt="" src={product.image} a="" width="200px" height="200px"></img>
       <p>{product.price}</p>
-    </Card>
+      <AddToCartButton addToCart={props.addToCart} productId={product.id} />
+    </div>
   );
 };

@@ -1,26 +1,42 @@
 import {
   Card,
   CardActionArea,
-  CardMedia,
-  CardContent,
   Typography,
+  CardMedia,
+  makeStyles,
+  CardContent,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import "../Product.css";
+import "../css/Product.css";
+
+const useStyles = makeStyles({
+  productImage: {
+    maxWidth: "100%",
+    height: "auto",
+  },
+  cardContent: {
+    textAlign: "left",
+    padding: "8px 5px 5px 5px",
+  },
+});
 
 export default function Product(props) {
+  const classes = useStyles();
+
   return (
-    <Link className="link" to={"/products/" + props.id}>
-      <Card raised={false} elevation={0} className="card">
+    <Link to={"/products/" + props.id}>
+      <Card raised={false} elevation={0}>
         <CardActionArea>
-          <CardMedia
-            className="product_image"
-            component="img"
-            src={props.image}
-          ></CardMedia>
-          <CardContent>
-            <Typography variant="h5">{props.name}</Typography>
-            <Typography color="textSecondary">{props.price}</Typography>
+          <CardMedia>
+            <img
+              className={classes.productImage}
+              src={props.image}
+              alt=""
+            ></img>
+          </CardMedia>
+          <CardContent className={classes.cardContent}>
+            <Typography>{props.name}</Typography>
+            <Typography>{props.price}</Typography>
           </CardContent>
         </CardActionArea>
       </Card>

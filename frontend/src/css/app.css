@@ -1,0 +1,12 @@
+.link {
+  text-decoration: none;
+}
+
+.navigation {
+  height: 5vh;
+  background-color: black;
+}
+
+.nav-item {
+  padding: 10px;
+}

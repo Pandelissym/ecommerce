@@ -1,0 +1,14 @@
+.card {
+  background-color: white;
+  margin: 10px;
+}
+
+.productImage {
+  max-width: 100%;
+  height: auto;
+}
+
+.card-content {
+  text-align: left;
+  padding: 8px 5px 5px 5px;
+}
