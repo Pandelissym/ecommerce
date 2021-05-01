@@ -38,14 +38,30 @@ function App() {
   const toggleDrawer = (toggle: boolean) => (event: object) =>
     setOpenDrawer(toggle);
 
-  let addToCart = (productId: string, amount: number) => {
-    let total = amount;
-    total += cart[productId] === undefined ? 0 : cart[productId];
-    let newCart = { ...cart };
-    newCart[productId] = total;
+  let addToCart = async (productId: string) => {
+    let amount = cart[productId] === undefined ? 1 : cart[productId] + 1;
 
-    setCart(newCart);
+    const url = new URL("http://localhost:8000/api/is-available");
+    let params = {
+      productId: productId,
+      amount: amount.toString(),
+    };
+    url.search = new URLSearchParams(params).toString();
+
+    let isAvailable = await fetch(url.toString()).then((response) => {
+      return response.ok;
+    });
+    if (isAvailable) {
+      console.log("Added. New total: " + amount);
+      let newCart = { ...cart };
+      newCart[productId] = amount;
+      setCart(newCart);
+    } else {
+      console.log("NOPE");
+    }
   };
+
+  let checkAvailability = async (productId: string) => {};
 
   return (
     <ThemeProvider theme={theme}>

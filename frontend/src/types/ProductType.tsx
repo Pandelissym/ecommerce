@@ -1,3 +1,6 @@
+/**
+ * Type for a product.
+ */
 export interface Product {
   id: string;
   name: string;
@@ -8,6 +11,9 @@ export interface Product {
   price: number;
 }
 
+/**
+ * An object with keys being productIds and values being amount of that product
+ */
 export type Cart = {
   [key: string]: number;
 };
